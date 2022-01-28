@@ -1,0 +1,21 @@
+{
+  "name": "ericdewald-assignment-12_employee_management_system",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EricDeWald/EricDeWald-Assignment-12_Employee_Management_System.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EricDeWald/EricDeWald-Assignment-12_Employee_Management_System/issues"
+  },
+  "homepage": "https://github.com/EricDeWald/EricDeWald-Assignment-12_Employee_Management_System#readme"
+}
