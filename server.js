@@ -23,7 +23,7 @@ const init = function(){
     inquirer.prompt([
         {
             type: 'list',
-            message: "pick it",
+            message: "Main Menu: ",
             choices: ['view all departments', 'view all roles', "view all employees", "add a department", "add a role", "add an employee", "and update an employee role"],
             name: "mainChoice"
         }
@@ -39,9 +39,49 @@ const init = function(){
                         console.log(err);
                       }
                     console.table(result);
+                    init();
                 })
             break;
-            
+            case 'view all roles':
+                db.query(`SELECT * FROM role`, (err, result)=>{
+                    if (err) {
+                        console.log(err);
+                      }
+                    console.table(result);
+                    init();
+                })
+            break;
+            case 'view all employees':
+                db.query(`SELECT * FROM employee`, (err, result)=>{
+                    if (err) {
+                        console.log(err);
+                      }
+                    console.table(result);
+                    init();
+                })
+            break;
+            case 'add a department':
+                inquirer.prompt([
+                    {
+                        type: 'input',
+                        message: "Name of the new department: ",
+                        name: "newDepartmentName"
+                    }
+                ])
+                .then(function(data){
+                    const newDepartmentAnswer= data
+                    console.log(newDepartmentAnswer)
+                    db.query("INSERT INTO department SET ? ",
+                            {
+                                name: newDepartmentAnswer.newDepartmentName
+                            },
+                            function (err) {
+                                if (err) throw err
+                                init();
+                            }
+                        )
+                    });
+                    break;
         }
     })
 }
