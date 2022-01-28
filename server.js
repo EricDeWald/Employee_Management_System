@@ -2,6 +2,7 @@
 const inquirer = require('inquirer')
 const menu = require('./Functions/index')
 const mysql2 = require('mysql2');
+const cTable = require('console.table');
 const PORT = process.env.PORT || 3001
 const db = mysql2.createConnection(
     {
@@ -31,7 +32,17 @@ const init = function(){
         const answers = data
         // console.log(answers) { mainChoice: 'view all employees' }
         
-        switch(answers)
+        switch(answers.mainChoice){
+            case 'view all departments':
+                db.query(`SELECT * FROM department`, (err, result)=>{
+                    if (err) {
+                        console.log(err);
+                      }
+                    console.table(result);
+                })
+            break;
+            
+        }
     })
 }
 
