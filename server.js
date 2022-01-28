@@ -14,6 +14,7 @@ const db = mysql2.createConnection(
     console.log(`Connected to the department_db database.`)
 );
 
+
 const init = function(){
     // menu.mainMenue()
     // .then(function(data){
@@ -43,22 +44,22 @@ const init = function(){
                 })
             break;
             case 'view all roles':
-                db.query(`SELECT * FROM role`, (err, result)=>{
-                    if (err) {
-                        console.log(err);
-                      }
-                    console.table(result);
-                    init();
-                })
+                db.query(`Select * from role JOIN department ON role.department_id = department.id;`, (err, result)=>{
+                        if (err) {
+                            console.log(err);
+                          }
+                          console.table(result);
+                          init();
+                })        
             break;
             case 'view all employees':
-                db.query(`SELECT * FROM employee`, (err, result)=>{
-                    if (err) {
-                        console.log(err);
-                      }
-                    console.table(result);
-                    init();
-                })
+                db.query(`Select * from employee JOIN department ON employee.department_id = department.id Join role on employee.role_id;`, (err, result)=>{
+                        if (err) {
+                            console.log(err);
+                          }
+                          console.table(result);
+
+                })        
             break;
             case 'add a department':
                 inquirer.prompt([
@@ -74,6 +75,74 @@ const init = function(){
                     db.query("INSERT INTO department SET ? ",
                             {
                                 name: newDepartmentAnswer.newDepartmentName
+                            },
+                            function (err) {
+                                if (err) throw err
+                                init();
+                            }
+                        )
+                    });
+                    break;
+            case 'add a role':
+                inquirer.prompt([
+                    {
+                        type: 'input',
+                        message: "Name of the new role: ",
+                        name: "newRoleName"
+                    },{
+                        type: 'input',
+                        message: "Salary of the new role: ",
+                        name: "newRoleSalary"
+                    },{
+                        type: 'input',
+                        message: "Department of the new role: ",
+                        name: "newRoledepartment"
+                    }
+                ])
+                .then(function(data){
+                    const newRoleAnswer= data
+                    console.log(newRoleAnswer)
+                    db.query("INSERT INTO role SET ? AND ? AND ? ",
+                            {
+                                name: newRoleAnswer.newRoleName
+                            },{
+                                name: newRoleAnswer.newRoleSalary
+                            },{
+                                name: newRoleAnswer.newRoledepartment
+                            },
+                            function (err) {
+                                if (err) throw err
+                                init();
+                            }
+                        )
+                    });
+                    break;
+                    case 'add a role':
+                inquirer.prompt([
+                    {
+                        type: 'input',
+                        message: "Name of the new role: ",
+                        name: "newRoleName"
+                    },{
+                        type: 'input',
+                        message: "Salary of the new role: ",
+                        name: "newRoleSalary"
+                    },{
+                        type: 'input',
+                        message: "Department of the new role: ",
+                        name: "newRoledepartment"
+                    }
+                ])
+                .then(function(data){
+                    const newRoleAnswer= data
+                    console.log(newRoleAnswer)
+                    db.query("INSERT INTO role SET ? ",
+                            {
+                                name: newRoleAnswer.newRoleName
+                            },{
+                                name: newRoleAnswer.newRoleSalary
+                            },{
+                                name: newRoleAnswer.newRoledepartment
                             },
                             function (err) {
                                 if (err) throw err
