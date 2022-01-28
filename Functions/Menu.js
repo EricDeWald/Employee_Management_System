@@ -1,10 +1,11 @@
-const inquirer = require('inquirer')
+const inquirer = require('inquirer');
 
 mainMenue = function(){
     inquirer.prompt([
         {
             type: 'list',
-            message: ['view all departments', 'view all roles', "view all employees", "add a department", "add a role", "add an employee", "and update an employee role"],
+            message: "pick it",
+            choices: ['view all departments', 'view all roles', "view all employees", "add a department", "add a role", "add an employee", "and update an employee role"],
             name: "mainChoice"
         }
     ])
