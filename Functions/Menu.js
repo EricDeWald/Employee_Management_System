@@ -1,7 +1,7 @@
 const inquirer = require('inquirer');
 
 mainMenue = function(){
-    inquirer.prompt([
+    return inquirer.prompt([
         {
             type: 'list',
             message: "pick it",
